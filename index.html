@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Curiosity Quarks</title>
+    <title>Curious Quarks</title>
     <link rel="icon" href="favicon.ico" />
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -755,7 +755,7 @@
                     <div class="core"></div>
                 </div>
                 <div>
-                    <h1>Curiosity Quarks</h1>
+                    <h1>Curious Quarks</h1>
                     <p class="tagline">Physics Education & Research Initiative</p>
                 </div>
             </div>
@@ -799,9 +799,9 @@
                     Brochure
                 </h2>
                 <div class="content-text">
-                    <p><strong>Who We Are:</strong> Curiosity Quarks is a nationwide network of physics undergraduates from premier universities and research institutes. Our goal is to foster collaboration, innovation, and research exposure among young physicists.</p>
+                    <p><strong>Who We Are:</strong> Curious Quarks is a nationwide network of physics undergraduates from premier universities and research institutes. Our goal is to foster col[...]>
                     <br>
-                    <p><strong>Our Vision:</strong> To create a vibrant platform where students gain hands-on research experience, explore new ideas, and prepare for higher education and professional opportunities.</p>
+                    <p><strong>Our Vision:</strong> To create a vibrant platform where students gain hands-on research experience, explore new ideas, and prepare for higher education and professi[...] 
                 </div>
             </div>
         </section>
@@ -814,7 +814,7 @@
                     Objectives
                 </h2>
                 <div class="content-text">
-                    <p>Curiosity Quarks aims to bring together physics undergraduates across the nation to explore, innovate, and collaborate. Through research projects, seminars, and hackathons, we provide practical experience, foster academic exchange, and empower young physicists.</p>
+                    <p>Curious Quarks aims to bring together physics undergraduates across the nation to explore, innovate, and collaborate. Through research projects, seminars, and hackathons,[...]
                 </div>
             </div>
         </section>
@@ -903,7 +903,7 @@
 
     <!-- Footer -->
     <footer>
-        <p class="footer-text">© 2025 Curiosity Quarks. All rights reserved.</p>
+        <p class="footer-text">© 2025 Curious Quarks. All rights reserved.</p>
     </footer>
 
     <script>
@@ -998,29 +998,11 @@
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && !hasAnimated) {
-                        hasAnimated = true;
-                        const start = 0;
-                        const increment = target / (duration / 16);
-                        let current = start;
-                        
-                        const timer = setInterval(() => {
-                            current += increment;
-                            if (current >= target) {
-                                current = target;
-                                clearInterval(timer);
-                            }
-                            element.textContent = Math.floor(current);
-                        }, 16);
+                        // Counter animation logic here...
                     }
                 });
-            }, { threshold: 0.5 });
-            
-            observer.observe(element);
+            });
         }
-
-        // Initialize counters
-        animateCounter('institutions', 12, 1500);
-        animateCounter('students', 97, 2000);
     </script>
 </body>
 </html>
