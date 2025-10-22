@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Curious Quarks — a physics education & research initiative connecting undergraduate students across institutions.">
     <title>Curious Quarks</title>
     <link rel="icon" href="favicon.ico" />
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -24,6 +25,7 @@
             --glass-border: rgba(255, 255, 255, 0.1);
             --text-primary: #ffffff;
             --text-secondary: #94a3b8;
+            --focus: 3px;
         }
 
         body {
@@ -33,6 +35,26 @@
             overflow-x: hidden;
             position: relative;
             min-height: 100vh;
+        }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            left: -999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        .skip-link:focus {
+            left: 1rem;
+            top: 1rem;
+            width: auto;
+            height: auto;
+            background: var(--glass);
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            z-index: 9999;
         }
 
         /* Animated Background */
@@ -87,6 +109,7 @@
             opacity: 0;
             animation: float 20s infinite;
             box-shadow: 0 0 10px currentColor;
+            will-change: transform, opacity;
         }
 
         @keyframes float {
@@ -157,6 +180,10 @@
             border: 2px solid;
             border-radius: 50%;
             opacity: 0.7;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            transform-origin: center center;
         }
 
         .orbit:nth-child(1) {
@@ -183,13 +210,13 @@
             filter: drop-shadow(0 0 5px var(--accent));
         }
 
-        .electron {
+        .orbit .electron {
             position: absolute;
             width: 6px;
             height: 6px;
             background: var(--primary);
             border-radius: 50%;
-            top: 0;
+            top: -3px; /* place at top edge of orbit */
             left: 50%;
             transform: translateX(-50%);
             box-shadow: 0 0 10px var(--primary);
@@ -248,6 +275,31 @@
             letter-spacing: 0.1em;
         }
 
+        /* Become a member tab (upper-right) */
+        .become-member {
+            position: absolute;
+            top: 1.1rem;
+            right: 1.1rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: #021024;
+            padding: 0.45rem 0.8rem;
+            border-radius: 999px;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(0,255,224,0.08);
+            border: 1px solid rgba(255,255,255,0.08);
+            z-index: 10;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .become-member:hover, .become-member:focus {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 40px rgba(0,255,224,0.12);
+            outline: none;
+        }
+
         /* Announcement Bar */
         .announcement-bar {
             background: linear-gradient(90deg, 
@@ -271,6 +323,7 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
             font-size: 0.9rem;
+            display: inline-block;
         }
 
         .announcement-bar::before {
@@ -297,6 +350,12 @@
             flex-wrap: wrap;
             max-width: 1000px;
             margin: 0 auto;
+            /* keep nav visible so users can switch tabs without hunting for it */
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            backdrop-filter: blur(8px);
+            background: linear-gradient(180deg, rgba(10,14,39,0.6), rgba(10,14,39,0.6));
         }
 
         .nav-card {
@@ -318,6 +377,13 @@
             gap: 1rem;
             position: relative;
             overflow: hidden;
+            user-select: none;
+        }
+
+        .nav-card:focus {
+            outline: var(--focus) solid rgba(0, 255, 224, 0.15);
+            outline-offset: 4px;
+            box-shadow: 0 0 0 4px rgba(0, 255, 224, 0.06);
         }
 
         /* Hover State - subtle lift */
@@ -407,7 +473,7 @@
             transition: transform 0.1s ease;
         }
 
-        /* Content Sections */
+        /* Content Sections (kept in DOM for accessibility and future use) */
         .content-container {
             max-width: 1000px;
             margin: 0 auto;
@@ -552,6 +618,60 @@
             font-size: 0.95rem;
         }
 
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .gallery-placeholder {
+            padding: 2rem;
+            border: 1px dashed rgba(255,255,255,0.06);
+            border-radius: 12px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .preview-img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .upload-controls {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Collaborators list */
+        .collaborators-list {
+            list-style: none;
+            padding-left: 0;
+            color: var(--text-secondary);
+            line-height: 2;
+        }
+
+        .collaborators-list li {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
         /* Stats Counter */
         .stats-grid {
             display: grid;
@@ -635,44 +755,725 @@
             position: relative;
             overflow: hidden;
         }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 
+                0 10px 40px rgba(0, 255, 224, 0.2),
+                inset 0 0 30px rgba(0, 255, 224, 0.05);
+        }
+
+        .contact-card:hover::before {
+            opacity: 0.05;
+            animation: rotate 10s linear infinite;
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            filter: drop-shadow(0 0 15px currentColor);
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+        }
+
+        .contact-value {
+            font-weight: 500;
+            font-size: 1.1rem;
+            word-break: break-word;
+        }
+
+        /* Viewer (shows selected tab content in front of user without page scroll) */
+        .viewer {
+            position: fixed;
+            left: 0;
+            right: 0;
+            /* top is set dynamically in JS so the sticky nav remains visible */
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(7,10,25,0.95), rgba(10,14,39,0.97));
+            border-top: 1px solid var(--glass-border);
+            z-index: 40;
+            display: none;
+            overflow: auto;
+            padding: 1.25rem;
+        }
+
+        .viewer.show {
+            display: block;
+            animation: fadeInUp 260ms ease;
+        }
+
+        .viewer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .viewer-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .viewer-close {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.06);
+            color: var(--text-primary);
+            padding: 0.35rem 0.6rem;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2.5rem;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.01) 0%, var(--glass) 100%);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            margin-top: 4rem;
+            font-size: 0.95rem;
+        }
+
+        footer .footer-text {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+        }
+
+        /* Accessibility / Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            .grid-overlay, .particle, .orbit, .core, header::before, .announcement-bar::before, .nav-card, .stat-card::after, .viewer.show {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-card {
+                min-width: 140px;
+                max-width: 160px;
+            }
+
+            .glass-panel {
+                padding: 2rem 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            .stat-number {
+                font-size: 2.8rem;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .logo-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .become-member {
+                top: 0.6rem;
+                right: 0.6rem;
+                padding: 0.35rem 0.6rem;
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="quantum-field"></div>
-    <div class="grid-overlay"></div>
-    <div class="particles"></div>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <!-- Quantum Field Background -->
+    <div class="quantum-field" aria-hidden="true"></div>
+    <div class="grid-overlay" aria-hidden="true"></div>
+    <div class="particles" id="particles" aria-hidden="true"></div>
+
+    <!-- Header -->
     <header>
         <div class="header-content">
             <div class="logo-container">
-                <div class="quantum-logo">
-                    <div class="orbit"></div>
-                    <div class="electron"></div>
-                    <div class="core"></div>
+                <div class="quantum-logo" aria-hidden="true">
+                    <div class="orbit"><div class="electron"></div></div>
+                    <div class="orbit"><div class="electron"></div></div>
+                    <div class="orbit"><div class="electron"></div></div>
+                    <div class="core" role="img" aria-label="Curious Quarks logo"></div>
                 </div>
-                <h1>Curious Quarks</h1>
+                <div>
+                    <h1>Curious Quarks</h1>
+                    <p class="tagline">Physics Education & Research Initiative</p>
+                </div>
             </div>
-            <p class="tagline">Explore the quantum world.</p>
+            <!-- Become a member tab (upper-right) -->
+            <a class="become-member" href="https://forms.gle/cRVmD7EYUZkcmyyC9" target="_blank" rel="noopener noreferrer" aria-label="Become a member - opens in new tab">Become a member</a>
         </div>
     </header>
-    <nav>
-        <div class="nav-card">
-            <div class="nav-icon">🔍</div>
-            <div class="nav-title">Search</div>
+
+    <!-- Announcement Bar -->
+    <div class="announcement-bar" role="region" aria-label="Announcements">
+        <div class="announcement-content" id="announcement">
+            <span id="announcementText">Loading updates...</span>
         </div>
-        <div class="nav-card">
-            <div class="nav-icon">🌌</div>
-            <div class="nav-title">Discover</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav role="navigation" aria-label="Primary">
+        <div class="nav-card active" data-target="brochure" role="button" tabindex="0" aria-pressed="true" aria-controls="brochure">
+            <div class="nav-icon" aria-hidden="true">📘</div>
+            <div class="nav-title">Brochure</div>
         </div>
-        <div class="nav-card">
-            <div class="nav-icon">💬</div>
-            <div class="nav-title">Discuss</div>
+        <div class="nav-card" data-target="objectives" role="button" tabindex="0" aria-pressed="false" aria-controls="objectives">
+            <div class="nav-icon" aria-hidden="true">🎯</div>
+            <div class="nav-title">Objectives</div>
+        </div>
+        <div class="nav-card" data-target="activities" role="button" tabindex="0" aria-pressed="false" aria-controls="activities">
+            <div class="nav-icon" aria-hidden="true">🚀</div>
+            <div class="nav-title">Activities</div>
+        </div>
+        <div class="nav-card" data-target="gallery" role="button" tabindex="0" aria-pressed="false" aria-controls="gallery">
+            <div class="nav-icon" aria-hidden="true">🖼️</div>
+            <div class="nav-title">Gallery</div>
+        </div>
+        <div class="nav-card" data-target="collaborators" role="button" tabindex="0" aria-pressed="false" aria-controls="collaborators">
+            <div class="nav-icon" aria-hidden="true">🤝</div>
+            <div class="nav-title">Collaborators</div>
+        </div>
+        <div class="nav-card" data-target="contact" role="button" tabindex="0" aria-pressed="false" aria-controls="contact">
+            <div class="nav-icon" aria-hidden="true">📡</div>
+            <div class="nav-title">Contact</div>
         </div>
     </nav>
-    <div class="content-container">
-        <section class="content-section active">
-            <h2>Welcome to Curious Quarks</h2>
-            <p class="content-text">Dive into the mysteries of the universe with us!</p>
+
+    <!-- Content -->
+    <main id="main" class="content-container" role="main" aria-live="polite">
+        <!-- Brochure Section -->
+        <section id="brochure" class="content-section active" aria-labelledby="brochure-heading">
+            <div class="glass-panel">
+                <h2 id="brochure-heading">
+                    <span class="section-icon" aria-hidden="true">📘</span>
+                    Brochure
+                </h2>
+                <div class="content-text">
+                    <p><strong>Who We Are:</strong> Curious Quarks is a nationwide network of physics undergraduates from premier universities and research institutes. We collaborate on accessible review articles, host seminars, and create learning materials to bridge classroom theory with hands-on research experience.</p>
+                    <p><strong>Our Vision:</strong> To create a vibrant platform where students gain hands-on research experience, explore new ideas, and prepare for higher education and professional roles in physics, data analysis, and scientific communication.</p>
+                    <p><strong>Get Involved:</strong> Join us for collaborative writing sprints, reading groups, and mentorship programs. Whether you're new to research or an experienced contributor, we provide opportunities to learn, present, and publish.</p>
+                </div>
+            </div>
         </section>
+
+        <!-- Objectives Section -->
+        <section id="objectives" class="content-section" aria-labelledby="objectives-heading">
+            <div class="glass-panel">
+                <h2 id="objectives-heading">
+                    <span class="section-icon" aria-hidden="true">🎯</span>
+                    Objectives
+                </h2>
+                <div class="content-text">
+                    <p>Curious Quarks aims to bring together physics undergraduates across the nation to explore, innovate, and collaborate. Through research projects, seminars, and workshops, we provide mentorship, resources, and a forum for students to publish collaborative reviews and project reports.</p>
+                    <p>Our short-term objectives include running regular literature review workshops, pairing students with faculty mentors, and organizing inter-college seminars. Long-term, we aim to build an open repository of student-led review articles and project documentation.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Activities Section -->
+        <section id="activities" class="content-section" aria-labelledby="activities-heading">
+            <div class="glass-panel">
+                <h2 id="activities-heading">
+                    <span class="section-icon" aria-hidden="true">🚀</span>
+                    Our Activities
+                </h2>
+
+                <ul class="feature-list">
+                    <li>
+                        <span class="feature-icon" aria-hidden="true">📝</span>
+                        <div>
+                            <strong>Collaborative Research</strong>
+                            Working on review articles and literature summaries across diverse physics topics — organized as short, focused groups.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="feature-icon" aria-hidden="true">📢</span>
+                        <div>
+                            <strong>Event Updates</strong>
+                            Sharing information about inter-college seminars, workshops, and student-run webinars to broaden learning opportunities.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="feature-icon" aria-hidden="true">🤝</span>
+                        <div>
+                            <strong>Networking & Collaboration</strong>
+                            Connecting students nationwide to exchange ideas, resources, and mentorship across institutions.
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="stats-grid" aria-hidden="false">
+                    <div class="stat-card" role="region" aria-label="Institutions">
+                        <span class="stat-number" id="institutions">12</span>
+                        <span class="stat-label">Institutions</span>
+                    </div>
+                    <div class="stat-card" role="region" aria-label="Students">
+                        <span class="stat-number" id="students">97</span>
+                        <span class="stat-label">Students</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section (empty for now, provision for uploads) -->
+        <section id="gallery" class="content-section" aria-labelledby="gallery-heading">
+            <div class="glass-panel">
+                <h2 id="gallery-heading">
+                    <span class="section-icon" aria-hidden="true">🖼️</span>
+                    Gallery
+                </h2>
+
+                <div class="content-text">
+                    <p class="gallery-placeholder">No images yet. You can upload images locally for preview below — in future these can be stored/published to the site.</p>
+
+                    <div class="upload-controls" aria-hidden="false">
+                        <label class="btn" for="galleryUpload" id="uploadLabel" role="button" tabindex="0">Select images</label>
+                        <button class="btn" id="clearGallery" type="button">Clear</button>
+                    </div>
+
+                    <input id="galleryUpload" type="file" accept="image/*" multiple style="display:none" aria-hidden="false">
+
+                    <div class="gallery-grid" id="galleryGrid" aria-live="polite" aria-atomic="true">
+                        <!-- previews will appear here (client-side only) -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Collaborators Section -->
+        <section id="collaborators" class="content-section" aria-labelledby="collaborators-heading">
+            <div class="glass-panel">
+                <h2 id="collaborators-heading">
+                    <span class="section-icon" aria-hidden="true">🤝</span>
+                    Collaborators
+                </h2>
+
+                <div class="content-text">
+                    <ul class="collaborators-list">
+                        <li>Jadavpur University</li>
+                        <li>Presidency University</li>
+                        <li>St. Xavier’s College Kolkata</li>
+                        <li>IACS</li>
+                        <li>CMI</li>
+                        <li>IISER Pune</li>
+                        <li>CEBS Mumbai</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="content-section" aria-labelledby="contact-heading">
+            <div class="glass-panel">
+                <h2 id="contact-heading">
+                    <span class="section-icon" aria-hidden="true">📡</span>
+                    Contact
+                </h2>
+
+                <div class="contact-grid">
+                    <a href="mailto:curiousquark76@gmail.com" class="contact-card">
+                        <div class="contact-icon" aria-hidden="true">📧</div>
+                        <div class="contact-info">
+                            <div class="contact-label">Email</div>
+                            <div class="contact-value">curiousquark76@gmail.com</div>
+                        </div>
+                    </a>
+
+                    <a href="https://instagram.com/curious.quark" target="_blank" rel="noopener noreferrer" class="contact-card">
+                        <div class="contact-icon" aria-hidden="true">📷</div>
+                        <div class="contact-info">
+                            <div class="contact-label">Instagram</div>
+                            <div class="contact-value">instagram.com/curious.quark</div>
+                        </div>
+                    </a>
+
+                    <a href="https://linkedin.com/in/curious-quark-b16ab438b" target="_blank" rel="noopener noreferrer" class="contact-card">
+                        <div class="contact-icon" aria-hidden="true">💼</div>
+                        <div class="contact-info">
+                            <div class="contact-label">LinkedIn</div>
+                            <div class="contact-value">linkedin.com/in/curious-quark-b16ab438b</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Viewer: shows the active tab content in front of the user (no page scrolling required) -->
+    <div id="viewer" class="viewer" aria-hidden="true" aria-live="polite">
+        <div class="viewer-header">
+            <div class="viewer-title" id="viewerTitle">Content</div>
+            <div>
+                <button id="viewerClose" class="viewer-close" aria-label="Close content panel">Close</button>
+            </div>
+        </div>
+        <div id="viewerContent" class="viewer-content" tabindex="0"></div>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <p class="footer-text">© 2025 Curious Quarks. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Respect reduced motion preference
+        const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Particle Generation
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            if (!particlesContainer) return;
+
+            // If reduced motion is preferred, render fewer static particles and skip animation
+            const particleCount = reduceMotion ? 6 : 30;
+
+            const colors = ['var(--primary)', 'var(--secondary)', 'var(--accent)'];
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                // randomize vertical start
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+                if (reduceMotion) {
+                    // place small, subtle, static particles for reduced-motion users
+                    particle.style.opacity = 0.25;
+                    particle.style.animation = 'none';
+                    particle.style.transform = 'translateY(0)';
+                }
+
+                particlesContainer.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Navigation with distinct hover, click and keyboard support
+        const navCards = Array.from(document.querySelectorAll('.nav-card'));
+        const sections = Array.from(document.querySelectorAll('.content-section'));
+        const viewer = document.getElementById('viewer');
+        const viewerContent = document.getElementById('viewerContent');
+        const viewerTitle = document.getElementById('viewerTitle');
+        const viewerClose = document.getElementById('viewerClose');
+        const navElement = document.querySelector('nav');
+
+        // Load saved tab or default
+        let currentTab = localStorage.getItem('activeTab') || 'brochure';
+
+        function setAriaPressed(tabName) {
+            navCards.forEach(card => {
+                const pressed = card.dataset.target === tabName;
+                card.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+            });
+        }
+
+        function populateViewer(tabName) {
+            const section = document.getElementById(tabName);
+            if (!section) {
+                viewerContent.innerHTML = '<p style="color:var(--text-secondary)">Content not found.</p>';
+                viewerTitle.textContent = 'Not found';
+                return;
+            }
+            // Clone the inner content to keep original DOM intact
+            const clone = section.querySelector('.glass-panel') ? section.querySelector('.glass-panel').cloneNode(true) : section.cloneNode(true);
+            // Clear previous content
+            viewerContent.innerHTML = '';
+            viewerContent.appendChild(clone);
+            // Update title
+            const titleEl = clone.querySelector('h2') ? clone.querySelector('h2').textContent.trim() : tabName;
+            viewerTitle.textContent = titleEl;
+        }
+
+        function showViewerBelowNav() {
+            // compute nav bottom relative to viewport and set viewer top accordingly so nav remains visible
+            const navRect = navElement.getBoundingClientRect();
+            // convert navRect.bottom (viewport based) to pixels from top of document for proper top when page is scrolled
+            const viewerTop = navRect.bottom + window.scrollY;
+            // position viewer
+            viewer.style.top = navRect.bottom + 'px'; // top relative to viewport
+            // ensure viewer covers remaining viewport below the sticky nav
+            viewer.style.height = (window.innerHeight - navRect.bottom) + 'px';
+            viewer.classList.add('show');
+            viewer.setAttribute('aria-hidden', 'false');
+            // focus viewer content for screen readers
+            setTimeout(() => viewerContent.focus(), 60);
+            // Prevent page jump when clicking tabs: keep page scroll position unchanged
+        }
+
+        function hideViewer() {
+            viewer.classList.remove('show');
+            viewer.setAttribute('aria-hidden', 'true');
+        }
+
+        function activateTab(tabName, options = { showViewer: true }) {
+            // Update nav cards active class
+            navCards.forEach(card => {
+                if (card.dataset.target === tabName) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+
+            // Update sections (visibility in DOM — keeps accessibility)
+            sections.forEach(section => {
+                if (section.id === tabName) {
+                    section.classList.add('active');
+                } else {
+                    section.classList.remove('active');
+                }
+            });
+
+            // Save to localStorage
+            localStorage.setItem('activeTab', tabName);
+
+            // Update aria
+            setAriaPressed(tabName);
+
+            // Populate viewer with the section content
+            if (options.showViewer) {
+                populateViewer(tabName);
+                showViewerBelowNav();
+            }
+        }
+
+        // Initialize with saved tab (show in viewer)
+        activateTab(currentTab, { showViewer: true });
+
+        // Add click and keyboard handlers to nav cards
+        navCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const target = card.dataset.target;
+                if (target !== currentTab) {
+                    activateTab(target, { showViewer: true });
+                    currentTab = target;
+                } else {
+                    // same tab clicked: toggle viewer visibility
+                    if (viewer.classList.contains('show')) {
+                        hideViewer();
+                    } else {
+                        populateViewer(target);
+                        showViewerBelowNav();
+                    }
+                }
+            });
+
+            // Keyboard support: Enter or Space activates
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.click();
+                }
+            });
+        });
+
+        // Viewer close button and Esc to close
+        viewerClose.addEventListener('click', hideViewer);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && viewer.classList.contains('show')) {
+                hideViewer();
+            }
+        });
+
+        // When window resizes or device rotates, recompute viewer height/top if visible
+        window.addEventListener('resize', () => {
+            if (viewer.classList.contains('show')) {
+                const navRect = navElement.getBoundingClientRect();
+                viewer.style.top = navRect.bottom + 'px';
+                viewer.style.height = (window.innerHeight - navRect.bottom) + 'px';
+            }
+        });
+
+        // Announcement rotator (replace or populate announcements array)
+        const announcements = [
+            // Add announcements here; leave empty to show fallback message
+            // "New workshop: Quantum Computing Basics — Oct 30",
+            // "Call for contributors: Review article on condensed matter — apply by Nov 10"
+        ];
+        const announcementText = document.getElementById("announcementText");
+
+        if (announcements.length === 0) {
+            announcementText.textContent = "Oops... No new updates :-)";
+        } else {
+            let idx = 0;
+            announcementText.textContent = announcements[idx];
+            setInterval(() => {
+                idx = (idx + 1) % announcements.length;
+                // small fade: replace text after timeout for simple effect
+                announcementText.style.opacity = '0';
+                setTimeout(() => {
+                    announcementText.textContent = announcements[idx];
+                    announcementText.style.opacity = '1';
+                }, 350);
+            }, 5000);
+        }
+
+        // Animated Counter with Intersection Observer + requestAnimationFrame
+        function animateCounterOnce(element, targetValue, duration = 2000) {
+            if (!element) return;
+            const startValue = 0;
+            let startTime = null;
+
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                const eased = progress < 0.5
+                    ? 2 * progress * progress
+                    : -1 + (4 - 2 * progress) * progress; // smooth-ish ease
+                const current = Math.floor(startValue + (targetValue - startValue) * eased);
+                element.textContent = current;
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    element.textContent = targetValue;
+                }
+            }
+
+            requestAnimationFrame(step);
+        }
+
+        function initCounters() {
+            const counters = [
+                { id: 'institutions', target: parseInt(document.getElementById('institutions')?.textContent || '0', 10) || 0 },
+                { id: 'students', target: parseInt(document.getElementById('students')?.textContent || '0', 10) || 0 },
+            ];
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        counters.forEach(c => {
+                            const el = document.getElementById(c.id);
+                            if (el && !el.dataset.animated) {
+                                animateCounterOnce(el, c.target, 1800);
+                                el.dataset.animated = 'true';
+                            }
+                        });
+                        // Once counters triggered, no need to observe further
+                        obs.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            // Observe the first stat card or the grid container
+            const grid = document.querySelector('.stats-grid');
+            if (grid) observer.observe(grid);
+        }
+
+        // Initialize counters but if reduced motion, skip animation and just show values
+        if (!reduceMotion) {
+            initCounters();
+        } else {
+            // mark them as animated to avoid any attempt to animate
+            document.querySelectorAll('.stat-number').forEach(el => el.dataset.animated = 'true');
+        }
+
+        // Gallery: client-side preview (provision for future uploads)
+        const galleryInput = document.getElementById('galleryUpload');
+        const galleryGrid = document.getElementById('galleryGrid');
+        const uploadLabel = document.getElementById('uploadLabel');
+        const clearGallery = document.getElementById('clearGallery');
+
+        function clearPreviews() {
+            while (galleryGrid.firstChild) galleryGrid.removeChild(galleryGrid.firstChild);
+        }
+
+        if (galleryInput) {
+            uploadLabel.addEventListener('click', () => galleryInput.click());
+            uploadLabel.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    galleryInput.click();
+                }
+            });
+
+            galleryInput.addEventListener('change', (e) => {
+                clearPreviews();
+                const files = Array.from(e.target.files || []);
+                if (files.length === 0) return;
+                files.forEach(file => {
+                    if (!file.type.startsWith('image/')) return;
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        const img = document.createElement('img');
+                        img.src = ev.target.result;
+                        img.alt = file.name;
+                        img.className = 'preview-img';
+                        const wrapper = document.createElement('div');
+                        wrapper.appendChild(img);
+                        galleryGrid.appendChild(wrapper);
+                    };
+                    reader.readAsDataURL(file);
+                });
+                // If viewer is open and gallery is selected, update viewer content too
+                if (currentTab === 'gallery' && viewer.classList.contains('show')) {
+                    populateViewer('gallery');
+                }
+            });
+
+            clearGallery.addEventListener('click', () => {
+                galleryInput.value = '';
+                clearPreviews();
+                if (currentTab === 'gallery' && viewer.classList.contains('show')) {
+                    populateViewer('gallery');
+                }
+            });
+        }
+
+        // Small defensive JS: ensure that if ids are changed the page still loads
+        window.addEventListener('load', () => {
+            // Ensure activeTab exists; fall back to brochure
+            const saved = localStorage.getItem('activeTab');
+            if (saved && document.getElementById(saved)) {
+                activateTab(saved, { showViewer: true });
+                currentTab = saved;
+            } else {
+                activateTab('brochure', { showViewer: true });
+                currentTab = 'brochure';
+            }
+        });
+    </script>
 </body>
 </html>
