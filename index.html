@@ -635,374 +635,44 @@
             position: relative;
             overflow: hidden;
         }
-
-        .contact-card::before {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: -100%;
-            width: 300%;
-            height: 300%;
-            background: radial-gradient(circle, var(--primary) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .contact-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            border-color: var(--primary);
-            box-shadow: 
-                0 10px 40px rgba(0, 255, 224, 0.2),
-                inset 0 0 30px rgba(0, 255, 224, 0.05);
-        }
-
-        .contact-card:hover::before {
-            opacity: 0.05;
-            animation: rotate 10s linear infinite;
-        }
-
-        .contact-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            filter: drop-shadow(0 0 15px currentColor);
-        }
-
-        .contact-info {
-            flex: 1;
-        }
-
-        .contact-label {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 500;
-        }
-
-        .contact-value {
-            font-weight: 500;
-            font-size: 1.1rem;
-            word-break: break-word;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2.5rem;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.01) 0%, var(--glass) 100%);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid var(--glass-border);
-            color: var(--text-secondary);
-            margin-top: 4rem;
-            font-size: 0.95rem;
-        }
-
-        footer .footer-text {
-            font-family: 'Orbitron', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 500;
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .nav-card {
-                min-width: 140px;
-                max-width: 160px;
-            }
-
-            .glass-panel {
-                padding: 2rem 1.5rem;
-            }
-
-            h2 {
-                font-size: 1.6rem;
-            }
-
-            .stat-number {
-                font-size: 2.8rem;
-            }
-
-            h1 {
-                font-size: 2.2rem;
-            }
-
-            .logo-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- Quantum Field Background -->
     <div class="quantum-field"></div>
     <div class="grid-overlay"></div>
-    <div class="particles" id="particles"></div>
-
-    <!-- Header -->
+    <div class="particles"></div>
     <header>
         <div class="header-content">
             <div class="logo-container">
                 <div class="quantum-logo">
-                    <div class="orbit">
-                        <div class="electron"></div>
-                    </div>
                     <div class="orbit"></div>
-                    <div class="orbit"></div>
+                    <div class="electron"></div>
                     <div class="core"></div>
                 </div>
-                <div>
-                    <h1>Curious Quarks</h1>
-                    <p class="tagline">Physics Education & Research Initiative</p>
-                </div>
+                <h1>Curious Quarks</h1>
             </div>
+            <p class="tagline">Explore the quantum world.</p>
         </div>
     </header>
-
-    <!-- Announcement Bar -->
-    <div class="announcement-bar">
-        <div class="announcement-content" id="announcement">
-            <span id="announcementText">Loading updates...</span>
-        </div>
-    </div>
-
-    <!-- Navigation -->
     <nav>
-        <div class="nav-card active" data-target="brochure">
-            <div class="nav-icon">📘</div>
-            <div class="nav-title">Brochure</div>
+        <div class="nav-card">
+            <div class="nav-icon">🔍</div>
+            <div class="nav-title">Search</div>
         </div>
-        <div class="nav-card" data-target="objectives">
-            <div class="nav-icon">🎯</div>
-            <div class="nav-title">Objectives</div>
+        <div class="nav-card">
+            <div class="nav-icon">🌌</div>
+            <div class="nav-title">Discover</div>
         </div>
-        <div class="nav-card" data-target="activities">
-            <div class="nav-icon">🚀</div>
-            <div class="nav-title">Activities</div>
-        </div>
-        <div class="nav-card" data-target="contact">
-            <div class="nav-icon">📡</div>
-            <div class="nav-title">Contact</div>
+        <div class="nav-card">
+            <div class="nav-icon">💬</div>
+            <div class="nav-title">Discuss</div>
         </div>
     </nav>
-
-    <!-- Content -->
-    <main class="content-container">
-        <!-- Brochure Section -->
-        <section id="brochure" class="content-section active">
-            <div class="glass-panel">
-                <h2>
-                    <span class="section-icon">📘</span>
-                    Brochure
-                </h2>
-                <div class="content-text">
-                    <p><strong>Who We Are:</strong> Curious Quarks is a nationwide network of physics undergraduates from premier universities and research institutes. Our goal is to foster col[...]>
-                    <br>
-                    <p><strong>Our Vision:</strong> To create a vibrant platform where students gain hands-on research experience, explore new ideas, and prepare for higher education and professi[...] 
-                </div>
-            </div>
+    <div class="content-container">
+        <section class="content-section active">
+            <h2>Welcome to Curious Quarks</h2>
+            <p class="content-text">Dive into the mysteries of the universe with us!</p>
         </section>
-
-        <!-- Objectives Section -->
-        <section id="objectives" class="content-section">
-            <div class="glass-panel">
-                <h2>
-                    <span class="section-icon">🎯</span>
-                    Objectives
-                </h2>
-                <div class="content-text">
-                    <p>Curious Quarks aims to bring together physics undergraduates across the nation to explore, innovate, and collaborate. Through research projects, seminars, and hackathons,[...]
-                </div>
-            </div>
-        </section>
-
-        <!-- Activities Section -->
-        <section id="activities" class="content-section">
-            <div class="glass-panel">
-                <h2>
-                    <span class="section-icon">🚀</span>
-                    Our Activities
-                </h2>
-                
-                <ul class="feature-list">
-                    <li>
-                        <span class="feature-icon">📝</span>
-                        <div>
-                            <strong>Collaborative Research</strong>
-                            Working on review articles across diverse physics topics.
-                        </div>
-                    </li>
-                    <li>
-                        <span class="feature-icon">📢</span>
-                        <div>
-                            <strong>Event Updates</strong>
-                            Sharing information about inter-college seminars and workshops.
-                        </div>
-                    </li>
-                    <li>
-                        <span class="feature-icon">🤝</span>
-                        <div>
-                            <strong>Networking & Collaboration</strong>
-                            Connecting students nationwide to exchange ideas and resources.
-                        </div>
-                    </li>
-                </ul>
-
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-number" id="institutions">12</span>
-                        <span class="stat-label">Institutions</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number" id="students">97</span>
-                        <span class="stat-label">Students</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="content-section">
-            <div class="glass-panel">
-                <h2>
-                    <span class="section-icon">📡</span>
-                    Contact
-                </h2>
-                
-                <div class="contact-grid">
-                    <a href="mailto:curiousquark76@gmail.com" class="contact-card">
-                        <div class="contact-icon">📧</div>
-                        <div class="contact-info">
-                            <div class="contact-label">Email</div>
-                            <div class="contact-value">curiousquark76@gmail.com</div>
-                        </div>
-                    </a>
-                    
-                    <a href="https://instagram.com/curious.quark" target="_blank" rel="noopener noreferrer" class="contact-card">
-                        <div class="contact-icon">📷</div>
-                        <div class="contact-info">
-                            <div class="contact-label">Instagram</div>
-                            <div class="contact-value">instagram.com/curious.quark</div>
-                        </div>
-                    </a>
-                    
-                    <a href="https://linkedin.com/in/curious-quark-b16ab438b" target="_blank" rel="noopener noreferrer" class="contact-card">
-                        <div class="contact-icon">💼</div>
-                        <div class="contact-info">
-                            <div class="contact-label">LinkedIn</div>
-                            <div class="contact-value">linkedin.com/in/curious-quark-b16ab438b</div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <p class="footer-text">© 2025 Curious Quarks. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // Particle Generation
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 30;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-                
-                // Random colors for particles
-                const colors = ['var(--primary)', 'var(--secondary)', 'var(--accent)'];
-                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
-        createParticles();
-
-        // Navigation with distinct hover and click effects
-        const navCards = document.querySelectorAll('.nav-card');
-        const sections = document.querySelectorAll('.content-section');
-        
-        // Load saved tab or default
-        let currentTab = localStorage.getItem('activeTab') || 'brochure';
-        
-        function activateTab(tabName) {
-            // Update nav cards
-            navCards.forEach(card => {
-                if (card.dataset.target === tabName) {
-                    card.classList.add('active');
-                } else {
-                    card.classList.remove('active');
-                }
-            });
-            
-            // Update sections
-            sections.forEach(section => {
-                if (section.id === tabName) {
-                    section.classList.add('active');
-                } else {
-                    section.classList.remove('active');
-                }
-            });
-            
-            // Save to localStorage
-            localStorage.setItem('activeTab', tabName);
-        }
-        
-        // Initialize with saved tab
-        activateTab(currentTab);
-        
-        // Add click handlers
-        navCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const target = card.dataset.target;
-                if (target !== currentTab) {
-                    activateTab(target);
-                    currentTab = target;
-                    
-                    // Smooth scroll to content
-                    document.getElementById(target).scrollIntoView({ 
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Original announcement logic - no fake news!
-        const announcements = [];
-        const announcementText = document.getElementById("announcementText");
-        
-        if (announcements.length === 0) {
-            announcementText.textContent = "Oops... No new updates :-)";
-        } else {
-            announcementText.textContent = announcements.join(" 🔹 ");
-        }
-
-        // Animated Counter with Intersection Observer
-        function animateCounter(elementId, target, duration = 2000) {
-            const element = document.getElementById(elementId);
-            if (!element) return;
-            
-            let hasAnimated = false;
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !hasAnimated) {
-                        // Counter animation logic here...
-                    }
-                });
-            });
-        }
-    </script>
+    </div>
 </body>
 </html>
